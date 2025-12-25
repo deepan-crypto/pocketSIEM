@@ -5,7 +5,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
   
   datasource:
     url: jdbc:h2:mem:pocketsiem
@@ -16,18 +19,19 @@ spring:
   h2:
     console:
       enabled: true
-      path: /h2-console
   
   cache:
     type: simple
 
 server:
   port: 8080
-
-api:
-  key: pocketsiem-demo-key-12345
+  servlet:
+    context-path: /
 
 logging:
   level:
     root: INFO
     com.pocketsiem: DEBUG
+
+api:
+  key: pocketsiem-demo-key-12345
