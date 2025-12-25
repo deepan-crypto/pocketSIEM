@@ -1,18 +1,23 @@
-// API Configuration
-// For mobile/physical devices: Use your computer's IP address
-// For web/emulator: Can use localhost
+import { Platform } from 'react-native';
 
-// To find your IP address:
-// - Windows: ipconfig (look for IPv4)
-// - Mac/Linux: ifconfig or hostname -I
+// For physical devices: Use your computer's IP address
+// For Android emulator: Use 10.0.2.2
+// For iOS simulator: Use localhost
 
-// IMPORTANT: This IP address is auto-detected. Update if needed.
-const API_BASE_URL = __DEV__
-  ? 'http://172.17.2.170:8080/api'  // Your computer's IP address
-  : 'https://your-production-api.com/api';
+const getBaseUrl = (): string => {
+  if (__DEV__) {
+    // Android emulator uses 10.0.2.2 to reach host machine
+    if (Platform.OS === 'android') {
+      return 'http://10.0.2.2:8080/api';
+    }
+    // iOS simulator can use localhost
+    return 'http://localhost:8080/api';
+  }
+  return 'https://your-production-api.com/api';
+};
 
 export const API_CONFIG = {
-  BASE_URL: API_BASE_URL,
+  BASE_URL: getBaseUrl(),
   API_KEY: 'pocketsiem-demo-key-12345',
   ENDPOINTS: {
     HEALTH: '/v1/health',
@@ -22,4 +27,4 @@ export const API_CONFIG = {
   TIMEOUT: 10000,
 };
 
-export default API_BASE_URL;
+export default API_CONFIG;
