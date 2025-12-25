@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -15,7 +16,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "threat_reports")
+@Table(name = "threat_reports", indexes = {
+    @Index(name = "idx_target_ip", columnList = "targetIp"),
+    @Index(name = "idx_reported_at", columnList = "reportedAt")
+})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -37,6 +41,12 @@ public class ThreatReport {
     
     @Column(nullable = false)
     private LocalDateTime createdAt;
+    
+    @Column(length = 100)
+    private String category;
+    
+    @Column
+    private Integer riskScore;
     
     @PrePersist
     protected void onCreate() {
