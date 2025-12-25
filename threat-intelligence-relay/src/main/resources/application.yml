@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: pocketsiem-backend
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+  
+  datasource:
+    url: jdbc:h2:mem:pocketsiem
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  
+  h2:
+    console:
+      enabled: true
+  
+  cache:
+    type: simple
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+logging:
+  level:
+    root: INFO
+    com.pocketsiem: DEBUG
+
+api:
+  key: pocketsiem-demo-key-12345
